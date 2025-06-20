@@ -1,0 +1,43 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+ENV/
+env/
+.venv/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# PyInstaller
+*.spec
+dist/
+build/
+*.egg-info/
+
+# VS Code or other IDE settings
+.vscode/
+.idea/
+*.swp
+
+# Model weights (if you download any YOLOv8 weights)
+*.pt
+runs/  # YOLOv8 prediction output folder
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Kaggle / Colab
+*.ipynb
+kaggle.json
