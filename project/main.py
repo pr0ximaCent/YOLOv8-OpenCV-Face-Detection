@@ -2,53 +2,52 @@
 
 import cv2
 from ultralytics import YOLO
+from fer import FER
 
+# Load YOLOv8 face detector
+model = YOLO("yolov8n-face.pt")  # Make sure this file is downloaded
 
-model = YOLO("yolov8n-face.pt")
+# Load emotion detector
+emotion_detector = FER(mtcnn=False)  # mtcnn=False since we'll crop faces ourselves
 
-
-
-# Start webcam capture (0 = default webcam)
+# Start webcam
 cap = cv2.VideoCapture(0)
-
-# Force OpenCV to create a visible window
-cv2.namedWindow("YOLOv8 Face Detector", cv2.WINDOW_NORMAL)
+cv2.namedWindow("Face & Emotion Detector", cv2.WINDOW_NORMAL)
 
 while True:
     ret, frame = cap.read()
     if not ret:
-        print("Failed to grab frame from webcam.")
         break
 
-    # Perform object detection
     results = model(frame)
 
-    # Draw detections
     for r in results:
         for box in r.boxes:
-            cls = int(box.cls[0])
-            conf = float(box.conf[0])
-            
-            # Filter only for 'person' class (default YOLO model doesn't do faces)
-            if model.names[cls] != "person":
-                continue
-
-            # Get bounding box coordinates
             x1, y1, x2, y2 = map(int, box.xyxy[0])
+            x1, y1, x2, y2 = max(0, x1), max(0, y1), min(frame.shape[1], x2), min(frame.shape[0], y2)
 
-            # Draw rectangle and label
+            face = frame[y1:y2, x1:x2]
+
+            # Emotion detection on the cropped face
+            try:
+                result = emotion_detector.top_emotion(face)
+                if result:
+                    emotion, score = result
+                    label = f"{emotion} ({score:.2f})"
+                else:
+                    label = "Unknown"
+            except Exception as e:
+                label = "Error"
+
+            # Draw rectangle and emotion label
             cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
-            cv2.putText(frame, f"{model.names[cls]} {conf:.2f}",
-                        (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX,
-                        0.6, (255, 0, 0), 2)
+            cv2.putText(frame, label, (x1, y1 - 10),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 0, 0), 2)
 
-    # Show the frame in a GUI window
-    cv2.imshow("YOLOv8 Face Detector", frame)
+    cv2.imshow("Face & Emotion Detector", frame)
 
-    # Exit loop when 'q' is pressed
     if cv2.waitKey(1) & 0xFF == ord('q'):
         break
 
-# Cleanup
 cap.release()
 cv2.destroyAllWindows()
