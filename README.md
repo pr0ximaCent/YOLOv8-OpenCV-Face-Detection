@@ -105,8 +105,8 @@ A webcam window will open, showing bounding boxes around detected faces with pre
 ## 👤 Author
 
 **Sabik Aftahee**
-📫 \[Your Email]
-🌐 \[LinkedIn / Portfolio / GitHub]
+📫 \[sabikaftahee01@gmail.com]
+🌐 \[Portfolio](https://tinyurl.com/Sabik-Aftahee)]
 
 ---
 
