@@ -2,7 +2,7 @@
 
 ### ✅ `README.md`
 
-````markdown
+
 # 🧠 Real-Time Face & Emotion Detection
 
 This project uses **YOLOv8** for face detection and **DeepFace** for emotion classification in real-time via a webcam feed. It's built with Python, OpenCV, and modern deep learning tools to provide an intelligent, interactive experience.
