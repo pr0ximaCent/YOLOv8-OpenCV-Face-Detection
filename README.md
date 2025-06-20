@@ -1,6 +1,4 @@
-Here’s a clean and professional `README.md` tailored for your **YOLOv8 + DeepFace Face & Emotion Detection** project. It includes description, features, setup, and usage instructions — ready to be pushed to GitHub or shared in your portfolio.
 
----
 
 ### ✅ `README.md`
 
