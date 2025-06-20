@@ -2,13 +2,10 @@
 
 import cv2
 from ultralytics import YOLO
-from fer import FER
+from deepface import DeepFace
 
 # Load YOLOv8 face detector
-model = YOLO("yolov8n-face.pt")  # Make sure this file is downloaded
-
-# Load emotion detector
-emotion_detector = FER(mtcnn=False)  # mtcnn=False since we'll crop faces ourselves
+model = YOLO("yolov8n.pt")  # Make sure this file is in the same folder
 
 # Start webcam
 cap = cv2.VideoCapture(0)
@@ -30,13 +27,11 @@ while True:
 
             # Emotion detection on the cropped face
             try:
-                result = emotion_detector.top_emotion(face)
-                if result:
-                    emotion, score = result
-                    label = f"{emotion} ({score:.2f})"
-                else:
-                    label = "Unknown"
-            except Exception as e:
+                analysis = DeepFace.analyze(face, actions=['emotion'], enforce_detection=False)
+                emotion = analysis[0]['dominant_emotion']
+                confidence = analysis[0]['emotion'][emotion]
+                label = f"{emotion} ({confidence:.2f}%)"
+            except Exception:
                 label = "Error"
 
             # Draw rectangle and emotion label
