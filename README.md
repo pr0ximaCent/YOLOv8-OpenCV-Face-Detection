@@ -87,9 +87,8 @@ A webcam window will open, showing bounding boxes around detected faces with pre
 ---
 
 ## 📸 Example Output
+![Example](https://github.com/user-attachments/assets/508abca5-a8ed-4a07-a827-e9a42263c0da)
 
-![demo](https://i.imgur.com/your-sample-frame.jpg)
-*(Replace this with a real screenshot if you like)*
 
 ---
 
