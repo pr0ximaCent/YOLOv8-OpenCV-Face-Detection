@@ -3,8 +3,10 @@
 import cv2
 from ultralytics import YOLO
 
-# Load YOLOv8 model (you can change to 'yolov8n.pt' for faster speed)
-model = YOLO("yolov8m.pt")  # Replace with "yolov8n.pt" for nano/light version
+
+model = YOLO("yolov8n-face.pt")
+
+
 
 # Start webcam capture (0 = default webcam)
 cap = cv2.VideoCapture(0)
